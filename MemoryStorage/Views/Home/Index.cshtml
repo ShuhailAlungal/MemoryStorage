@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<style>
+    .thTable {
+        text-align: center;
+        font-size: 22px;
+        background-color:lightgrey;
+    }
+    .allFields {
+        border: 0;
+        text-align: center;
+        width: 100%;
+    }
+</style>
+<br />
+<br />
+<br />
+<div style="width:200%">
+    <h1><b>Memory Storage Device Details</b></h1>
+    <table border="1" id="tblMemory">
+        <tr>
+            <td></td>
+            <th class="thTable">Size </th>
+            <th class="thTable">Type </th>
+            <th class="thTable" width="15%">Number Of Items </th>
+            <th class="thTable" width="15%">Make </th>
+            <th class="thTable">Speed </th>
+            <th class="thTable" width="20%">Processor </th>
+            <th class="thTable">Update </th>
+            <th class="thTable">Delete</th>
+
+        </tr>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr id="trHtml">
+                    <td> <input id="hdnId" hidden value="@a.Id"></td>
+                    <td> <input type="text" id="txtSize" class="allFields" name="Size" value="@a.Size" /></td>
+                    <td><input type="text" id="txtType" class="allFields" name="Type" value="@a.Type" /></td>
+                    <td><input type="text" id="txtNoOfItems" class="allFields" name="NoOfItems" value="@a.NoOfItems" /></td>
+                    <td><input type="text" id="txtMake" class="allFields" name="Make" value="@a.Make" /></td>
+                    <td><input type="text" id="txtSpeed" class="allFields" name="Speed" value="@a.Speed" /></td>
+                    <td><input type="text" id="txtProcessor" class="allFields" name="Processor" value="@a.Processor" /></td>
+                    <td><button type="button" id="btnEdit" class="btn btn-info btn-default btnUpdate allFields" value="@a.Id">Update</button></td>
+                    <td><button type="button" id="btnDelete" class="btn btn-danger delete allFields" value="@a.Id">Delete</button></td>
+                </tr>
+
+            }
+            </tbody>
+        </table>
+
+</div>
+<br/>
+<div>
+    <a asp-area="" asp-controller="Home" asp-action="Create" class="btn btn-success icon-next">Create</a>
+</div>
+<script>
+    //Update function
+    $(".btnUpdate").click(function () {
+        var id = $(this).closest("tr").find("#hdnId").val();
+        var size = $(this).closest("tr").find("#txtSize").val();
+        var type = $(this).closest("tr").find("#txtType").val();
+        var noOfItems = $(this).closest("tr").find("#txtNoOfItems").val();
+        var make = $(this).closest("tr").find("#txtMake").val();
+        var speed = $(this).closest("tr").find("#txtSpeed").val();
+        var processor = $(this).closest("tr").find("#txtProcessor").val();
+        var array = {
+            Id: id,
+            Size: size,
+            Type: type,
+            NoOfItems: noOfItems,
+            Make: make,
+            Speed: speed,
+            Processor: processor
+        }
+
+        $.ajax({
+            url: "/Home/Update",
+            type: "PUT",
+            dataType: 'json',
+            data: { mod: array },
+            async: false,
+            success: function () {
+                 location.reload(); 
+            }
+        });
+    });
+
+    //Delete function
+    $(".delete").click(function () {
+        var id = $(this).closest("tr").find("#hdnId").val();
+        var r = confirm("Please click Ok to delete your data!");
+        if (r == true) {
+            var Urlm = "/Home/Delete";
+            $.ajax({
+                url: Urlm,
+                type: 'DELETE',
+                data: { id: id },
+                async: false,
+                success: function () {
+                    alert("Delete Successfully");
+                    window.location.href = '/Home/Index';
+                }
+            });
+        }
+    });
+</script>

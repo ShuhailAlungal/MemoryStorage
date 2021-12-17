@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+<style>
+     td {
+        padding: 8px;
+    }
+    #divSubmit {
+        padding: 20px 150px;
+    }
+</style>
+<h2>Create</h2>
+<form action="Create" method="post">
+    <table width="300" cellpadding="1500">
+        <tr>
+            <td><label>Size</label></td>
+            <td>
+                <input type="text" name="aa.Size" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td><label>Type</label></td>
+            <td>
+                <input type="text" name="aa.Type" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td><label>No Of Items</label></td>
+            <td>
+                <input type="text" name="aa.NoOfItems" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td><label>Make</label></td>
+            <td>
+                <input type="text" name="aa.Make" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td><label>Speed</label></td>
+            <td>
+                <input type="text" name="aa.Speed" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td><label>Processor</label></td>
+            <td>
+                <input type="text" name="aa.Processor" value="" />
+            </td>
+        </tr>
+    </table>
+    <div id="divSubmit">
+
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-info">Back</a>
+
+        <button type="submit" class="btn btn-success" id="btnSubmit">Submit</button>
+    </div>
+</form>
